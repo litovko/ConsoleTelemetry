@@ -15,7 +15,7 @@ cTCPServer::cTCPServer()
     connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(serverConnection()));
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
     m_timer.start(5000);
-    if (m_tcpServer->listen(QHostAddress::LocalHost, 9999))
+    if (m_tcpServer->listen(QHostAddress::Any, 9999))
         {
             qDebug()<<"LISTEN:"<<m_tcpServer->errorString();
         }
