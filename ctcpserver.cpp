@@ -14,8 +14,8 @@ cTCPServer::cTCPServer()
     m_tcpServer = new QTcpServer(this);
     connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(serverConnection()));
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-    m_timer.start(5000);
-    if (m_tcpServer->listen(QHostAddress::Any, 9999))
+    m_timer.start(0);
+    if (m_tcpServer->listen(QHostAddress::Any,  9999))
         {
             qDebug()<<"LISTEN:"<<m_tcpServer->errorString();
         }
@@ -58,25 +58,28 @@ void cTCPServer::timerSlot()
     15	CRC16	Контрольная
     16	CRC16	сумма
     */
-    data.append(0x55);
-    data.append(0x31);
-    data.append(0x03);
-    data.append(0x0E);
-    data.append(char(0x00));
-    data.append(0xFE);
-    data.append(0xFF);
-    data.append(0xF1);
-    data.append(0xFF);
-    data.append(0x08);
-    data.append(0x09);
-    data.append(0x0A);
-    data.append(0x0B);
-    data.append(0x0C);
+//    data.append(0x55);
+//    data.append(0x31);
+//    data.append(0x03);
+//    data.append(0x0E);
+//    data.append(char(0x00));
+//    data.append(0xFE);
+//    data.append(0xFF);
+//    data.append(0xF1);
+//    data.append(0xFF);
+//    data.append(0x08);
+//    data.append(0x09);
+//    data.append(0x0A);
+//    data.append(0x0B);
+//    data.append(0x0C);
+
+    m_clientConnection->write(data.fromHex("5531ffffffffffffffffffffffffff8a553218081708180818081808ffffffffffffff4f5531ffffffffffffffffffffffffff8a553218081808180818081808ffffffffffffff4f5531ffffffffffffffffffff"));
+    m_clientConnection->write(data.fromHex("ffffffff"));
 
 
-    int crc = qChecksum(data.data(), data.length());
-    qDebug()<<"Tick:crc:"<<crc<<"data:"<<data.toHex();
-    m_clientConnection->write(data.append(crc).append(crc/256).append("qqq"));
+//    int crc = qChecksum(data.data(), data.length());
+//    qDebug()<<"Tick:crc:"<<crc<<"data:"<<data.toHex();
+//    //m_clientConnection->write(data.append(crc).append(crc/256).append("qqq"));
     qDebug()<<data.toHex();
     /*
 
@@ -105,30 +108,83 @@ void cTCPServer::timerSlot()
     19	CRC16	Контрольная
     20	CRC16	сумма
     */
-    data.clear();
-    data.append(0x55);
-    data.append(0x32);
-    data.append(0x01);
-    data.append(0x02);
-    data.append(0x03);
-    data.append(0x04);
-    data.append(0x05);
-    data.append(0x06);
-    data.append(0x07);
-    data.append(0x08);
-    data.append(0x09);
-    data.append(0x0A);\
-    data.append(0x0B);
-    data.append(0x0C);
-    data.append(0x0D);\
-    data.append(0x0E);
-    data.append(0x0F);
-    data.append(0x10);
-
-    crc = qChecksum(data.data(), data.length());
-    qDebug()<<"Tick:crc:"<<crc<<"data:"<<data.toHex();
-    m_clientConnection->write(data.append(crc).append(crc/256).append("xxx"));
-    qDebug()<<data.toHex();
+    //data.clear();
+//    data.append(0x55);
+//    data.append(0x32);
+//    data.append(0x01);
+//    data.append(0x02);
+//    data.append(0x03);
+//    data.append(0x04);
+//    data.append(0x05);
+//    data.append(0x06);
+//    data.append(0x07);
+//    data.append(0x08);
+//    data.append(0x09);
+//    data.append(0x0A);\
+//    data.append(0x0B);
+//    data.append(0x0C);
+//    data.append(0x0D);\
+//    data.append(0x0E);
+//    data.append(0x0F);
+//    data.append(0x10);
+//    data.append(0x55);
+//    data.append(0x32);
+//    data.append(0x01);
+//    data.append(0x02);
+//    data.append(0x03);
+//    data.append(0x04);
+//    data.append(0x05);
+//    data.append(0x06);
+//    data.append(0x07);
+//    data.append(0x08);
+//    data.append(0x09);
+//    data.append(0x0A);\
+//    data.append(0x0B);
+//    data.append(0x0C);
+//    data.append(0x0D);\
+//    data.append(0x0E);
+//    data.append(0x0F);
+//    data.append(0x10);
+//    data.append(0x55);
+//    data.append(0x32);
+//    data.append(0x01);
+//    data.append(0x02);
+//    data.append(0x03);
+//    data.append(0x04);
+//    data.append(0x05);
+//    data.append(0x06);
+//    data.append(0x07);
+//    data.append(0x08);
+//    data.append(0x09);
+//    data.append(0x0A);\
+//    data.append(0x0B);
+//    data.append(0x0C);
+//    data.append(0x0D);\
+//    data.append(0x0E);
+//    data.append(0x0F);
+//    data.append(0x10);
+//    data.append(0x55);
+//    data.append(0x32);
+//    data.append(0x01);
+//    data.append(0x02);
+//    data.append(0x03);
+//    data.append(0x04);
+//    data.append(0x05);
+//    data.append(0x06);
+//    data.append(0x07);
+//    data.append(0x08);
+//    data.append(0x09);
+//    data.append(0x0A);\
+//    data.append(0x0B);
+//    data.append(0x0C);
+//    data.append(0x0D);\
+//    data.append(0x0E);
+//    data.append(0x0F);
+//    data.append(0x10);
+//    crc = qChecksum(data.data(), data.length());
+//    qDebug()<<"Tick:crc:"<<crc<<"data:"<<data.toHex();
+//    m_clientConnection->write(data.append(crc).append(crc/256).append("xxx"));
+//    qDebug()<<data.toHex();
 }
 
 void cTCPServer::clientDisconnected()
