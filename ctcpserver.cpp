@@ -73,8 +73,8 @@ void cTCPServer::timerSlot()
 //    data.append(0x0B);
 //    data.append(0x0C);
 
-    m_clientConnection->write(data.fromHex("5531ffffffffffffffffffffffffff8a553218081708180818081808ffffffffffffff4f5531ffffffffffffffffffffffffff8a553218081808180818081808ffffffffffffff4f5531ffffffffffffffffffff"));
-    m_clientConnection->write(data.fromHex("ffffffff"));
+    m_clientConnection->write(data.fromHex("5531ffffffffffffffffffffffffff8a553218081708180818081808ffffffffffffff4f5531ffffffffffffffffffffffffff8a553218081808180818081808ffffffffffffffffff4f5531ffffffffffffffffffff"));
+    m_clientConnection->write(data.fromHex("fffffааааfff"));
 
 
 //    int crc = qChecksum(data.data(), data.length());
